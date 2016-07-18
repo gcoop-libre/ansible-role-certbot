@@ -1,0 +1,7 @@
+---
+- hosts: [localhost]
+  become: yes
+  remote_user: debian
+
+  roles:
+    - gcoop-libre.certbot

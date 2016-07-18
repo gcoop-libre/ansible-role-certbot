@@ -1,0 +1,2 @@
+---
+certbot_directory: "{{ certbot_dir }}"

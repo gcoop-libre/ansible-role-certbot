@@ -1,0 +1,35 @@
+---
+- fail: 
+    msg: "{{ certbot_domain }} is not defined"
+  when: certbot_domain is not defined
+
+- name: cerbot dependency
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - libssl-dev
+    - libssl1.0.0
+    - libffi-dev
+    - python
+    - python-dev
+    - gcc
+    - dialog
+    - augeas-lenses
+    - libaugeas0
+    - python-virtualenv
+    - virtualenv
+
+- name: obtain a cert using a built-in standalone webserver.
+  shell: "{{ certbot_command }} certonly --standalone --keep-until-expiring --non-interactive --agree-tos -d {{ certbot_domain }} --no-self-upgrade"
+
+- name: Install renewal cron
+  cron:
+    cron_file: certbot
+    user: root
+    name: "certbot renewal"
+    day: "{{ certbot_renewal_frequency.day }}" 
+    hour: "{{ certbot_renewal_frequency.hour }}" 
+    minute: "{{ certbot_renewal_frequency.minute }}" 
+    job: "{{ certbot_command }} renew --standalone --quiet --no-self-upgrade 2> /dev/null"
