@@ -22,7 +22,7 @@
     - virtualenv
 
 - name: obtain a cert using a built-in standalone webserver.
-  shell: "{{ certbot_command }} certonly --standalone --keep-until-expiring --non-interactive --agree-tos -d {{ certbot_domain }} --no-self-upgrade"
+  shell: "{{ certbot_command }} certonly --standalone --keep-until-expiring --non-interactive --agree-tos --email {{ certbot_email }} -d {{ certbot_domain }} --no-self-upgrade"
 
 - name: Install renewal cron
   cron:

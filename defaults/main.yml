@@ -2,6 +2,7 @@
 certbot_directory: /opt/certbot
 certbot_command: "{{ certbot_directory }}/certbot-auto"
 certbot_domain: example.com
+certbot_email: example@eexample.com
 certbot_renewal_frequency:
   day: "*"
   hour: 0
