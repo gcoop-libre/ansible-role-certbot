@@ -4,7 +4,31 @@ galaxy_info:
   description: Obtain a certificate using a built-in standalone webserver with certbot.
   company: gcoop Cooperativa de Software Libre
   license: GPLv2
-  min_ansible_version: 1.8
+  min_ansible_version: 1.9
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+    - name: opensuse
+      versions:
+        - all
+    - name: Solaris
+      versions:
+        - 11.3
+    - name: Ubuntu
+      versions:
+        - precise
+        - quantal
+        - raring
+        - saucy
+        - trusty
+        - utopic
+        - vivid
+        - wily
+        - xenial
   galaxy_tags:
     - networking
     - system
