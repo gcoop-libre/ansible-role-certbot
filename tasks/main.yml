@@ -1,25 +1,16 @@
 ---
-- fail: 
+- fail:
     msg: "{{ certbot_domain }} is not defined"
   when: certbot_domain is not defined
+
+- name: include OS-specific variables
+  include_vars: vars/{{ ansible_distribution + '-' + ansible_distribution_release }}.yml
 
 - name: cerbot dependency
   apt:
     name: "{{ item }}"
     state: present
-  with_items:
-    - ca-certificates
-    - libssl-dev
-    - libssl1.0.0
-    - libffi-dev
-    - python
-    - python-dev
-    - gcc
-    - dialog
-    - augeas-lenses
-    - libaugeas0
-    - python-virtualenv
-    - virtualenv
+  with_items: '{{ certbot_dependency }}'
 
 - name: obtain a cert using a built-in standalone webserver.
   shell: "{{ certbot_command }} certonly --standalone --keep-until-expiring --non-interactive --agree-tos --email {{ certbot_email }} -d {{ certbot_domain }} --no-self-upgrade"
@@ -29,7 +20,7 @@
     cron_file: certbot
     user: root
     name: "certbot renewal"
-    day: "{{ certbot_renewal_frequency.day }}" 
-    hour: "{{ certbot_renewal_frequency.hour }}" 
-    minute: "{{ certbot_renewal_frequency.minute }}" 
+    day: "{{ certbot_renewal_frequency.day }}"
+    hour: "{{ certbot_renewal_frequency.hour }}"
+    minute: "{{ certbot_renewal_frequency.minute }}"
     job: "{{ certbot_command }} renew --standalone --quiet --no-self-upgrade 2> /dev/null"
