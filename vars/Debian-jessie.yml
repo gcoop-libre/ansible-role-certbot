@@ -1,0 +1,15 @@
+---
+
+certbot_dependency:
+  - ca-certificates
+  - libssl-dev
+  - libssl1.0.0
+  - libffi-dev
+  - python
+  - python-dev
+  - gcc
+  - dialog
+  - augeas-lenses
+  - libaugeas0
+  - python-virtualenv
+  - virtualenv
